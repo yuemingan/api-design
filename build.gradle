@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group 'edu.cmu.apidesign'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    testImplementation 'io.rest-assured:rest-assured:4.4.0'
+
+    testImplementation 'io.rest-assured:json-path:4.4.0'
+
+    testImplementation 'io.rest-assured:xml-path:4.4.0'
+
+    testImplementation 'io.rest-assured:json-schema-validator:4.4.0'
+
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13.2'
+
+    // This dependency is used by the application.
+    implementation 'com.google.guava:guava:30.1.1-jre'
+
+    implementation 'io.javalin:javalin:4.1.1'
+    implementation "org.apache.logging.log4j:log4j-api:2.13.0"
+    implementation "org.apache.logging.log4j:log4j-core:2.13.0"
+    runtimeOnly "org.apache.logging.log4j:log4j-slf4j18-impl:2.13.0"
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    finalizedBy jacocoTestCoverageVerification
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.7
+            }
+        }
+    }
+}
